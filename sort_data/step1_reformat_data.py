@@ -7,6 +7,7 @@
 # @Email: wangyouan@gmial.com
 
 import os
+import datetime
 
 import pandas as pd
 
@@ -17,6 +18,7 @@ original_data_path = '/home/wangzg/Documents/Data/DIME'
 file_list = os.listdir(original_data_path)
 
 for f in file_list:
+    print('{}: {}'.format(datetime.datetime.today(), f))
     if f.endswith('csv') and f.startswith('contribDB'):
         df = pd.read_csv(os.path.join(original_data_path, f))
 
