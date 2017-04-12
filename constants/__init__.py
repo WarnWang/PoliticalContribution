@@ -7,9 +7,10 @@
 # @Email: wangyouan@gmial.com
 
 from constants.path_info import Path
+from constants.parameters import Parameters
 
 
-class Constants(Path):
+class Constants(Path, Parameters):
     DATE = 'date'
     CYCLE = 'cycle'
     AMOUNT = 'amount'
@@ -22,4 +23,4 @@ class Constants(Path):
     C_TYPE = 'contributor_type'
     C_STATE = 'contributor_state'
     C_CITY = 'contributor_city'
-
+    IS_CORP = 'is_corp'

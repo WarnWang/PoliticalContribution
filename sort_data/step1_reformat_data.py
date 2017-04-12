@@ -20,11 +20,11 @@ file_list = os.listdir(original_data_path)
 for f in file_list:
     print('{}: {}'.format(datetime.datetime.today(), f))
     if f.endswith('csv') and f.startswith('contribDB'):
-        df = pd.read_csv(os.path.join(original_data_path, f))
+        df = pd.read_csv(os.path.join(original_data_path, f), encoding="ISO-8859-1")
 
     else:
         continue
 
-    df[const.DATE] = pd.to_datetime(df[const.DATE])
+    # df[const.DATE] = pd.to_datetime(df[const.DATE])
 
     df.to_pickle(os.path.join(const.INPUT_DATA_PATH, '{}.p'.format(f.split('.')[0])))
