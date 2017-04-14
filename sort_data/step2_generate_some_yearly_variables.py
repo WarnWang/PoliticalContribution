@@ -25,17 +25,17 @@ def generate_firm_variables(data_df):
     result_df = pd.DataFrame()
     corp_df = data_df[data_df[const.IS_CORP] == 'corp']
     groups = corp_df.groupby(const.C_STATE)
-    result_df['Firm_contribution_amt'] = groups[const.AMOUNT].sum()
-    result_df['Firm_contribution_num'] = groups[const.AMOUNT].count()
+    result_df.loc[:, 'Firm_contribution_amt'] = groups[const.AMOUNT].sum()
+    result_df.loc[:, 'Firm_contribution_num'] = groups[const.AMOUNT].count()
 
     corp_df = corp_df[corp_df[const.R_PARTY].notnull()]
     corp_df.loc[:, const.R_PARTY] = corp_df[const.R_PARTY].apply(str2int)
     dem_groups = corp_df[corp_df[const.R_PARTY] == 100].groupby(const.C_STATE)
     rep_groups = corp_df[corp_df[const.R_PARTY] == 200].groupby(const.C_STATE)
-    result_df['Firm_contribution_amt_rep'] = rep_groups[const.AMOUNT].sum()
-    result_df['Firm_contribution_amt_dem'] = dem_groups[const.AMOUNT].sum()
-    result_df['Firm_contribution_num_rep'] = rep_groups[const.AMOUNT].count()
-    result_df['Firm_contribution_num_dem'] = dem_groups[const.AMOUNT].count()
+    result_df.loc[:, 'Firm_contribution_amt_rep'] = rep_groups[const.AMOUNT].sum()
+    result_df.loc[:, 'Firm_contribution_amt_dem'] = dem_groups[const.AMOUNT].sum()
+    result_df.loc[:, 'Firm_contribution_num_rep'] = rep_groups[const.AMOUNT].count()
+    result_df.loc[:, 'Firm_contribution_num_dem'] = dem_groups[const.AMOUNT].count()
     return result_df.reset_index(drop=False)
 
 

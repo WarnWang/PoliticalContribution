@@ -66,5 +66,5 @@ for f in input_file_list:
     # for key in replace_state:
     #     df[const.C_STATE] = df[const.C_STATE].replace(key, replace_state[key])
 
-    df = df[df[const.C_STATE].isin(const.US_STATES)]
+    df = df[df[const.C_STATE].isin(const.US_STATES)].reset_index(drop=True)
     df.to_pickle(os.path.join(const.DATA_PATH, 'formatted_input_data', f))

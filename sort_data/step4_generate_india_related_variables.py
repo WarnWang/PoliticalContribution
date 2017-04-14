@@ -12,14 +12,14 @@ import pandas as pd
 
 from constants import Constants as const
 
-india_df = pd.read_excel(os.path.join(const.NAME_DATA_PATH, 'SouthAsianNames.xls'))
-india_series = india_df['Name'].apply(lambda x: x.lower())
+india_name_df = pd.read_excel(os.path.join(const.NAME_DATA_PATH, 'SouthAsianNames.xls'))
+india_name_series = india_name_df['Name'].apply(lambda x: x.lower())
 
 
 def generate_india_related_variables(df_path):
-    df = pd.read_pickle(os.path.join(const.RESULT_PATH, df_path))
-    india_df1 = df[df[const.C_LNAME].isin(india_series)]
-    india_df2 = df[df[const.C_FNAME].isin(india_series)]
+    df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, df_path))
+    india_df1 = df[df[const.C_LNAME].isin(india_name_series)]
+    india_df2 = df[df[const.C_FNAME].isin(india_name_series)]
     india_df = pd.concat([india_df1, india_df2], ignore_index=False).drop_duplicates()
 
     india_group = india_df.groupby(const.C_STATE)
@@ -85,7 +85,7 @@ if __name__ == '__main__':
 
     for data_file in file_list:
         print('{}: {}'.format(datetime.datetime.today(), data_file))
-        firm_df = process_df(df_file=data_file)
+        firm_df = generate_india_related_variables(df_path=data_file)
         firm_df['year'] = int(data_file.split('.')[0].split('_')[-1])
         sta_dfs.append(firm_df)
 
