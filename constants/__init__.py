@@ -24,3 +24,4 @@ class Constants(Path, Parameters):
     C_STATE = 'contributor_state'
     C_CITY = 'contributor_city'
     IS_CORP = 'is_corp'
+    R_PARTY = 'recipient_party'
