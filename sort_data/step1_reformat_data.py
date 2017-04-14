@@ -39,11 +39,32 @@ useful_cols = [const.CYCLE, const.AMOUNT, const.C_NAME, const.C_FNAME, const.C_L
 #     df.to_pickle(os.path.join(const.INPUT_DATA_PATH, '{}.p'.format(f.split('.')[0])))
 #     chunks.close()
 
-# input_file_list = os.listdir(const.INPUT_DATA_PATH)
-input_file_list = ['contribDB_2010.p', 'contribDB_2002.p', 'contribDB_1990.p']
+input_file_list = os.listdir(const.INPUT_DATA_PATH)
+# input_file_list = ['contribDB_2010.p', 'contribDB_2002.p', 'contribDB_1990.p']
+
+# for f in input_file_list:
+#     print('{}: {}'.format(datetime.datetime.today(), f))
+#     df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, f))
+#     df = df[useful_cols]
+#     df.to_pickle(os.path.join(const.INPUT_DATA_PATH, f))
+
+replace_state = {'CF': 'CA',
+                 'CL': 'CO',
+                 'DL': 'DE',
+                 'HA': 'HI',
+                 'KA': 'KS',
+                 'MC': 'MI',
+                 'NB': 'NE',
+                 'WN': 'WA',
+                 'WS': 'WI',
+                 'CM': 'MP',
+                 }
 
 for f in input_file_list:
     print('{}: {}'.format(datetime.datetime.today(), f))
     df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, f))
-    df = df[useful_cols]
-    df.to_pickle(os.path.join(const.INPUT_DATA_PATH, f))
+    # for key in replace_state:
+    #     df[const.C_STATE] = df[const.C_STATE].replace(key, replace_state[key])
+
+    df = df[df[const.C_STATE].isin(const.US_STATES)]
+    df.to_pickle(os.path.join(const.DATA_PATH, 'formatted_input_data', f))

@@ -25,8 +25,9 @@ def process_df(df_file):
     # load file and reformat party data type
     df_file_path = os.path.join(const.INPUT_DATA_PATH, df_file)
     df = pd.read_pickle(df_file_path)
-    df.loc[:, const.R_PARTY] = df[const.R_PARTY].apply(str2int)
-    df.to_pickle(df_file_path)
+    # df.loc[:, const.R_PARTY] = df[const.R_PARTY].apply(str2int)
+    # df.loc[:, const.C_STATE] = df[const.C_STATE].dropna().apply(lambda x: x.upper())
+    # df.to_pickle(df_file_path)
 
     # generate PPL level data
     ppl_df = df.dropna(subset=[const.C_LNAME, const.C_FNAME], how='all')

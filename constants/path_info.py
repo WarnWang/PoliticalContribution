@@ -19,4 +19,5 @@ class Path(object):
     RESULT_PATH = os.path.join(ROOT_PATH, 'result')
 
     NAME_DATA_PATH = os.path.join(DATA_PATH, 'names')
-    INPUT_DATA_PATH = os.path.join(DATA_PATH, 'input_data')
+    INPUT_DATA_PATH = os.path.join(DATA_PATH, 'formatted_input_data')
+    ORI_DATA_PATH = os.path.join(DATA_PATH, 'input_data')
