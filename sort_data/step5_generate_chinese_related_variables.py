@@ -22,35 +22,35 @@ def generate_chinese_related_variables(df_path):
     china_df2 = df[df[const.C_FNAME].isin(china_name_series)]
     china_df = pd.concat([china_df1, china_df2], ignore_index=False).drop_duplicates()
 
-    india_group = china_df.groupby(const.C_STATE)
+    china_group = china_df.groupby(const.C_STATE)
 
     in_sta_df = pd.DataFrame()
-    in_sta_df.loc[:, 'CH_contribution_amt'] = india_group[const.AMOUNT].sum()
-    in_sta_df.loc[:, 'CH_contribution_num'] = india_group[const.AMOUNT].count()
+    in_sta_df.loc[:, 'CH_contribution_amt'] = china_group[const.AMOUNT].sum()
+    in_sta_df.loc[:, 'CH_contribution_num'] = china_group[const.AMOUNT].count()
 
     # male df
-    male_group = india_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
+    male_group = china_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
     in_sta_df.loc[:, 'CH_contribution_male_amt'] = male_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'CH_contribution_male_num'] = male_group[const.AMOUNT].count()
 
     # female df
-    female_group = india_group.apply(lambda x: x[x[const.C_GENDER] == 'F']).groupby(const.C_STATE)
+    female_group = china_group.apply(lambda x: x[x[const.C_GENDER] == 'F']).groupby(const.C_STATE)
     in_sta_df.loc[:, 'CH_contribution_female_amt'] = female_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'CH_contribution_female_num'] = female_group[const.AMOUNT].count()
 
     # ppl related variables
-    rep_ppl_group = india_group.apply(lambda x: x[x[const.R_PARTY] == 200]).groupby(const.C_STATE)
+    rep_ppl_group = china_group.apply(lambda x: x[x[const.R_PARTY] == 200]).groupby(const.C_STATE)
     in_sta_df.loc[:, 'CH_contribution_amt_rep'] = rep_ppl_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'CH_contribution_num_rep'] = rep_ppl_group[const.AMOUNT].count()
 
     # dem related variables
-    dem_ppl_group = india_group.apply(lambda x: x[x[const.R_PARTY] == 100]).groupby(const.C_STATE)
+    dem_ppl_group = china_group.apply(lambda x: x[x[const.R_PARTY] == 100]).groupby(const.C_STATE)
     in_sta_df.loc[:, 'CH_contribution_amt_dem'] = dem_ppl_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'CH_contribution_num_dem'] = dem_ppl_group[const.AMOUNT].count()
 
     # male dem
 
-    male_dem_group = india_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
+    male_dem_group = dem_ppl_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
     in_sta_df.loc[:, 'CH_contribution_male_amt_dem'] = male_dem_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'CH_contribution_male_num_dem'] = male_dem_group[const.AMOUNT].count()
 

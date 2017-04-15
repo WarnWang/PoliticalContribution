@@ -58,8 +58,7 @@ def process_df(df_file):
     ppl_sta_df.loc[:, 'PPL_contribution_num_dem'] = dem_ppl_group[const.AMOUNT].count()
 
     # male dem
-
-    male_dem_group = ppl_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
+    male_dem_group = dem_ppl_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
     ppl_sta_df.loc[:, 'PPL_contribution_male_amt_dem'] = male_dem_group[const.AMOUNT].sum()
     ppl_sta_df.loc[:, 'PPL_contribution_male_num_dem'] = male_dem_group[const.AMOUNT].count()
 

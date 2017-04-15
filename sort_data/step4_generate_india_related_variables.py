@@ -50,7 +50,7 @@ def generate_india_related_variables(df_path):
 
     # male dem
 
-    male_dem_group = india_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
+    male_dem_group = dem_ppl_group.apply(lambda x: x[x[const.C_GENDER] == 'M']).groupby(const.C_STATE)
     in_sta_df.loc[:, 'IN_contribution_male_amt_dem'] = male_dem_group[const.AMOUNT].sum()
     in_sta_df.loc[:, 'IN_contribution_male_num_dem'] = male_dem_group[const.AMOUNT].count()
 
