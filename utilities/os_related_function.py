@@ -12,7 +12,7 @@ import os
 def get_root_path():
     if hasattr(os, 'uname'):
         if os.uname()[1] == 'ewin3102':
-            return '/home/zigan/Documents/WangYouan/trading/ChineseStock'
+            return '/home/zigan/Documents/WangYouan/research/PoliticalContribution'
         elif os.uname()[0] == 'Darwin':
             return '/Users/warn/PycharmProjects/QuestionFromProfWang/ChineseStock'
         else:
