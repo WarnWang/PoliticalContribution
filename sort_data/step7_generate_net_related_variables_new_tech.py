@@ -33,7 +33,7 @@ def generate_net_rep_data_from_dataframe(df):
         sub_dem = sub_df[sub_df[const.R_PARTY] == 100]
         sub_dem_sum = sub_dem.groupby(const.C_NAME)[const.AMOUNT].sum()
         sub_rep_sum = sub_rep.groupby(const.C_NAME)[const.AMOUNT].sum()
-        net_sum = sub_rep_sum - sub_dem_sum
+        net_sum = sub_rep_sum.subtract(sub_dem_sum, fill_value=0)
         rep_net_num_series.loc[key] = net_sum[net_sum > 0].size
         dem_net_num_series.loc[key] = net_sum[net_sum < 0].size
         rep_net_amt_series.loc[key] = net_sum.sum()
