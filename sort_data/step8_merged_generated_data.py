@@ -33,9 +33,9 @@ for path in sta_result_path:
         if df.empty:
             df = pd.read_pickle(os.path.join(current_path, f))
         else:
-            df.merge(pd.read_pickle(os.path.join(current_path, f)), on=[const.C_STATE, const.YEAR], how='outer')
+            df = df.merge(pd.read_pickle(os.path.join(current_path, f)), on=[const.C_STATE, const.YEAR], how='outer')
 
     print()
 
 df.to_pickle(os.path.join(const.RESULT_PATH, '20170420_generated_result.p'))
-df.to_csv(os.path.join(const.RESULT_PATH, '20170420_generated_result.p'), index=False)
+df.to_csv(os.path.join(const.RESULT_PATH, '20170420_generated_result.csv'), index=False)

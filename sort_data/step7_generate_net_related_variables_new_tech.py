@@ -154,5 +154,6 @@ if __name__ == '__main__':
         sta_dfs.append(tmp_df)
 
     sta_df = pd.concat(sta_dfs, ignore_index=True)
+    sta_df = sta_df.rename(index=str, columns={'index': const.C_STATE})
     sta_df.to_pickle(os.path.join(save_path, '{}.p'.format(save_name)))
     sta_df.to_csv(os.path.join(save_path, '{}.csv'.format(save_name)))
