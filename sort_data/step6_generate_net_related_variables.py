@@ -7,8 +7,10 @@
 # @Email: wangyouan@gmial.com
 
 import os
+import multiprocessing
 
 import pandas as pd
+import pathos
 
 from constants import Constants as const
 
@@ -24,20 +26,27 @@ def generate_net_rep_data(df):
     return rep_sum - dem_sum
 
 
+def generate_net_rep_data_from_state_dataframe(df_tuple):
+    sub_df = df_tuple[1]
+    state = df_tuple[0]
+    sub_group = sub_df.groupby(const.C_NAME)
+    net_value = pd.Series()
+    for name in sub_group.groups.keys():
+        sub_sub_df = sub_group.get_group(name)
+        net_value.loc[name] = generate_net_rep_data(sub_sub_df)
+
+    return state, net_value[net_value > 0].count()
+
+
+pool = pathos.multiprocessing.ProcessingPool(multiprocessing.cpu_count() - 2)
+
+
 def generate_net_rep_data_from_dataframe(df):
     df_group = df.groupby(const.C_STATE)
-    result_series = pd.Series()
-
-    for key in df_group.groups.keys():
-        sub_df = df_group.get_group(key)
-        sub_group = sub_df.groupby(const.C_NAME)
-        net_value = pd.Series()
-        for name in sub_group.groups.keys():
-            sub_sub_df = sub_group.get_group(name)
-            net_value.loc[name] = generate_net_rep_data(sub_sub_df)
-        result_series.loc[key] = net_value[net_value > 0].count()
-
-    return result_series
+    dfs = [(state_name, tmp_df) for state_name, tmp_df in df_group]
+    results = pool.map(generate_net_rep_data_from_state_dataframe, dfs)
+    sub_dict = {state: value for state, value in results}
+    return pd.Series(sub_dict)
 
 
 def generate_net_data(data_file):
