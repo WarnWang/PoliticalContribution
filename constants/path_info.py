@@ -21,3 +21,4 @@ class Path(object):
     NAME_DATA_PATH = os.path.join(DATA_PATH, 'names')
     INPUT_DATA_PATH = os.path.join(DATA_PATH, 'formatted_input_data')
     ORI_DATA_PATH = os.path.join(DATA_PATH, 'input_data')
+    LAW_AUTHOR_FILE_PATH = os.path.join(DATA_PATH, 'law_author_list', '20170422_author_upper_name_series.p')
