@@ -46,6 +46,7 @@ if __name__ == '__main__':
 
     for data_file in file_list:
         df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, data_file))
+        df = df[df[const.AMOUNT] > 0]
         firm_df = generate_firm_variables(df)
         firm_df['year'] = int(data_file.split('.')[0].split('_')[-1])
         sta_dfs.append(firm_df)

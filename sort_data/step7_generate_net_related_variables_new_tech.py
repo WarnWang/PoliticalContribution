@@ -44,6 +44,7 @@ def generate_net_rep_data_from_dataframe(df):
 
 def generate_net_data(data_file):
     df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, data_file))
+    df = df[df[const.AMOUNT] > 0]
 
     result_df = pd.DataFrame()
 

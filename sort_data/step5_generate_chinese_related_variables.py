@@ -18,6 +18,7 @@ china_name_series = china_name_df['name'].dropna().apply(lambda x: x.lower())
 
 def generate_chinese_related_variables(df_path):
     df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, df_path))
+    df = df[df[const.AMOUNT] > 0]
     china_df1 = df[df[const.C_LNAME].isin(china_name_series)]
     china_df2 = df[df[const.C_FNAME].isin(china_name_series)]
     china_df = pd.concat([china_df1, china_df2], ignore_index=False).drop_duplicates()

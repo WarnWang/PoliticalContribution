@@ -18,6 +18,7 @@ india_name_series = india_name_df['Name'].apply(lambda x: x.lower())
 
 def generate_india_related_variables(df_path):
     df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, df_path))
+    df = df[df[const.AMOUNT] > 0]
     india_df1 = df[df[const.C_LNAME].isin(india_name_series)]
     india_df2 = df[df[const.C_FNAME].isin(india_name_series)]
     india_df = pd.concat([india_df1, india_df2], ignore_index=False).drop_duplicates()
