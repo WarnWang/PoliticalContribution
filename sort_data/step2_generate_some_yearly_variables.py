@@ -40,11 +40,14 @@ def generate_firm_variables(data_df):
 
 
 if __name__ == '__main__':
+    import datetime
+
     file_list = os.listdir(const.INPUT_DATA_PATH)
 
     sta_dfs = []
 
     for data_file in file_list:
+        print('{}: {}'.format(datetime.datetime.today(), data_file))
         df = pd.read_pickle(os.path.join(const.INPUT_DATA_PATH, data_file))
         df = df[df[const.AMOUNT] > 0]
         firm_df = generate_firm_variables(df)
